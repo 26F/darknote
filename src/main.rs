@@ -143,26 +143,24 @@ fn main() {
         let mut leftchan = 0.0;
         let mut rightchan = 0.0;
 
-        let mut _pitch = 0.0;
-
         for index in 0..num_tones {
+
+            let mut pitch = tones[index];
 
             if (t * p_sample_rate * num_seconds as f64) < target_seconds {
 
-                _pitch = linear_interpolation(init_tones[index], tones[index], (t * t_scale) - 4.0);
-
-            } else {
-
-                _pitch = tones[index];
+                pitch = linear_interpolation(init_tones[index], tones[index], (t * t_scale) - 4.0);
 
             }
 
 
-            _pitch += f64::sin(t * sin_peroid + sin_phases[index]) * (1.0 - logistic((t * t_correction_scale) - 4.0));
+            pitch += f64::sin(t * sin_peroid + sin_phases[index]) * (1.0 - logistic((t * t_correction_scale) - 4.0));
+
+            let right_chan_fadein = logistic(t * 31.0 - 4.0);
 
             for harmonic in 1..=num_harmonics {
 
-                let note = _pitch * harmonic as f64;
+                let note = pitch * harmonic as f64;
 
                 let sin_part = 0.80;
                 let square_part = 0.05;
@@ -187,6 +185,8 @@ fn main() {
                     rightchan += waveform * (1.0 - ((num_tones as f64) / ((index + 1) as f64)));
 
                 }
+
+                rightchan *= right_chan_fadein;
 
             }
 
