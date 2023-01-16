@@ -74,12 +74,20 @@ fn main() {
     // positioning of the chord in pitch space
     let pitch_shift: i32 = -1;
 
-    let chord = vec![9 + pitch_shift, 16 + pitch_shift, 21 + pitch_shift, 28 + pitch_shift, 
+    let mut chord = vec![9 + pitch_shift, 16 + pitch_shift, 21 + pitch_shift, 28 + pitch_shift, 
                      33 + pitch_shift, 40 + pitch_shift, 45 + pitch_shift, 52 + pitch_shift, 
                      57 + pitch_shift, 64 + pitch_shift, 69 + pitch_shift, 74 + pitch_shift,
                      79 + pitch_shift, 84 + pitch_shift, 89 + pitch_shift, 94 + pitch_shift,
                      99 + pitch_shift, 104 + pitch_shift, 109 + pitch_shift];
 
+    let num_notes = chord.len();
+
+    // tri-tone
+    for i in 0..num_notes {
+
+        chord.push(chord[i] + 6);
+
+    }
 
     let mut tones = Vec::new();
     let mut init_tones = Vec::new();
