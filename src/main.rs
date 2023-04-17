@@ -142,7 +142,7 @@ fn main() {
 
     };
 
-    let mut writer = hound::WavWriter::create("rustnote.wav", spec).unwrap();
+    let mut writer = hound::WavWriter::create("darknote.wav", spec).unwrap();
 
     for t in (0..p_sample_rate as i32 * num_seconds).map(|x| x as f64 / (p_sample_rate * num_seconds as f64)) {
 
